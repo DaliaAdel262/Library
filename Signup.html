@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+</head>
+<body>
+    <div style="background-color: rgb(225, 215, 0);">
+        <h1> Nile Knowledge Hub</h1>
+        <nav>
+            <a href="home.html">Home</a> |
+            <a href="AboutUs.html">About Us</a> |
+            <a href="ContactUs.html">Contact Us</a> |
+            <a href="Login.html">Login</a> |
+            <a href="Signup.html">Sign up</a>
+        </nav>
+        <p>
+            <form action="/search" method="get">
+                <input type="text" name="query" placeholder="Search author, title, category..">
+                <button type="submit">Search</button>
+            </form>
+        </p>
+        <hr>
+        <div >
+        </div>
+    </div>
+    
+    <h2>Sign Up</h2>
+    <form action="signup_process.php" method="POST"> <!-- TBD 7sb el back end-->
+        <label >Username:</label><br>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label >Password:</label><br>
+        <input type="password" required placeholder="Please choose a strong password"><br><br>
+
+        <label>Confirm Password:</label><br>
+        <input type="password" required placeholder="Confirm your password"><br><br>
+
+        <label >Email:</label><br>
+        <input type="email" required><br><br>
+
+        <label>Are you an admin?</label>
+        <input type="checkbox"><br><br>
+
+        <input type="submit" value="Sign Up">
+    </form>
+    <hr>
+    <div>
+        <nav>
+            <a href="home.html">Home</a> |
+            <a href="#Community">Community Guidelines</a> |
+        </nav>
+    </div>
+    <footer>
+        <p> Copyright © 2024 Nile knowledge hub.</p>
+    </footer>
+</body>
+</html>
