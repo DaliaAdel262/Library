@@ -1,0 +1,78 @@
+{% load static %}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+</head>
+
+{% include 'nav_bar.html' %}
+
+
+{% block content %}
+
+<div class="search-section" align="center">
+    <form class="search-wrapper" method="post" id="search_form">
+        <a class="search-icon" style="font-size: 20px;">
+            <i class="fa fa-search"></i>
+        </a>
+        {% csrf_token %}
+        <input id="bar"  class ="search-bar" type="text" placeholder="Search author, title, category..">
+    </form>
+</div>
+<div id="result" class="search-results not-visible">
+            
+</div>
+{% endblock content %}
+
+{% include 'footer.html' %}
+
+<script>
+    const search_input = document.getElementById('bar');
+    const results = document.getElementById('result');
+    const csrf = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+
+
+    const searchInputData = (book) => {
+        $.ajax({
+        type: 'POST',
+        url: '{% url "results" %}', 
+        data: {
+            'csrfmiddlewaretoken': csrf,
+            'book': book
+        },
+        success: function(result) {
+            const data = result.data;
+            if (Array.isArray(data)) {
+                data.forEach(book =>{
+                    results.innerHTML +=
+                    `<div class="book" id="card">
+                    <a href="/books/${book.id}/"><img src="${book.image}" width="170" height="240" alt="${book.name}"></a>
+                    <br>
+                    <h2>${book.name} <small><br>by ${book.author}</small></h2>
+                    <br>
+                    <p>${book.description}</p>
+                    <br>
+                    </div>`
+                })  
+            }else{
+                results.innerHTML+= data;
+            }
+        },
+        error: function(result) {
+            console.log(result);
+        }
+        });
+
+    }
+    search_input.addEventListener('keyup',e=>{
+        results.innerHTML="";
+        searchInputData(e.target.value);
+    });
+
+    
+</script>
+
+
+
+
+
+

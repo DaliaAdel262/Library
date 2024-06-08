@@ -1,0 +1,108 @@
+
+{%load static%}
+<link rel="stylesheet" href="{% static 'CSS/add_book.css'%}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+{% include '../nav_bar.html' %}
+{%block content%}
+
+
+<html>
+  <head>
+    <title>Add New Book</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+  </head>
+  <body>
+    <h2>Add New Book</h2>
+    <div class="container">
+      <form method="POST"  id="form">
+        {% csrf_token %}
+
+        <div class="form_inputs">
+          <label for="bookname">Book Name: </label>
+          <input type="text" name="bookname" class="inputs" id="name" required />
+        </div>
+
+        <div class="form_inputs">
+          <label for="author">Author: </label>
+          <input type="text" name="author" class="inputs" id="author" required />
+        </div>
+
+        <div class="form_inputs">
+          <label for="book_description" name="description">Description: </label>
+          <textarea
+            name="book_description"
+            cols="50"
+            rows="5"
+            id="description"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form_inputs">
+          <label for="Publisher">Publisher: </label>
+          <input type="text" name="Publisher" class="inputs" id="Publisher" required />
+        </div>
+
+        <div class="form_inputs">
+          <label for="genre">Genre: </label>
+          <input type="text" name="genre" class="inputs" id="genre" required/>
+        </div>
+
+        <div class="form_inputs">
+          <label for="language">Language: </label>
+          <input type="text" name="language" class="inputs" id="language" required />
+        </div>
+
+        <div class="form_inputs">
+          <label for="edition">Edition: </label>
+          <input type="text" name="edition" class="inputs" id="edition" required />
+        </div>
+
+        <div class="form_inputs">
+          <label for="date">Publication Year: </label>
+          <input type="text" name="date" class="inputs" id="date" required/>
+        </div>
+
+        <div class="form_inputs">
+          <label for="ISBN">ISBN: </label>
+          <input type="text" name="isbn" class="inputs" id="isbn" required />
+        </div>
+
+        <div class="form_inputs">
+          <label for="cover">Book Cover URL: </label>
+          <input type="text" name="cover" class="inputs" id="cover" />
+        </div>
+
+    </div>
+      <div class="buttons">
+        <button type="submit" id="confirmButton">Confirm</button> 
+        <input type="reset" value="Reset" id="resetButton"/> 
+      </div>
+      <br />
+      <br />
+    </form>
+    <script>
+        const confirmButton = document.getElementById('confirmButton');
+
+        confirmButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('form').submit();
+            alert('Book added successfully!');
+        });
+
+        const resetButton = document.getElementById('resetButton');
+        
+        resetButton.addEventListener('click', (e) => {
+        e.preventDefault(); 
+        if (confirm('Are you sure you want to reset the form?')) {
+            document.getElementById('form').reset(); 
+        }
+    });
+    </script>
+  </body>
+</html>
+{%endblock content%}
+

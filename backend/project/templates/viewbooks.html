@@ -1,0 +1,279 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static '../staticfiles/css/viewBooks.css' %}">
+
+{%include 'nav_bar.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+</head>
+
+<body>
+    <div id="book-container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const books = {{ books|safe }};
+            const categories ={{ categories|safe }};
+            createGrid(books, categories);
+            console.log(books);
+            console.log(categories);
+
+        });
+
+        function showAlert(message) {
+            alert(message);
+            console.log("here the function called");
+        }
+
+        function createbook(book) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            const i = book.id;
+
+            const link = document.createElement('a');
+            link.href = '/books/' + i + '/';
+            const cardImage = document.createElement('img');
+            cardImage.src = book.image;
+            cardImage.className = 'bookImage';
+
+            link.appendChild(cardImage);
+
+            const cardContent = document.createElement('div');
+            cardContent.className = 'card-content';
+
+            const cardTitle = document.createElement('h2');
+            cardTitle.textContent = book.name;
+            cardTitle.style.color = '#31220f';
+
+            const cardAuthor = document.createElement('h2');
+            cardAuthor.textContent = "by: " + book.author;
+            cardAuthor.style.color = '#31220f';
+
+            cardContent.appendChild(cardTitle);
+            card.appendChild(link);
+            card.appendChild(cardContent);
+            cardContent.appendChild(cardAuthor);
+
+            card.style.cssText = `
+                height: 500px;
+                width: 250px;
+                display: flex;
+                padding: 0px;
+                margin: 0px;
+                box-shadow: 1px 1px 20px;
+                border-radius: 10px;
+                overflow: hidden;
+            `;
+            card.style.display = 'inline';
+            card.style.margin = '15px';
+
+            cardImage.style.width = '100%';
+            cardImage.style.objectFit = '100%';
+            cardImage.style.height = '350px';
+            cardImage.style.transform = 'scale(1)';
+
+            cardContent.style.padding = '8px';
+            cardContent.style.fontSize = '16px';
+            cardContent.style.paddingLeft = '5px';
+
+            cardAuthor.style.fontSize = '17px';
+            cardAuthor.style.paddingLeft = '20px';
+
+            {% if user.is_authenticated %}
+                {% if user.is_admin %}
+                    if (book.available) {
+                        card.style.borderBottom = '10px solid #7af722';
+                    } else {
+                        card.style.borderBottom = '10px solid red';
+                    }
+                {% else %}
+                    if (book.available) {
+                        card.style.borderBottom = '10px solid #7af722';
+
+                        // Create form for borrowing
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = "{% url 'borrow_book2' %}";
+
+                        // Add CSRF token to form data
+                        const csrfTokenInput = document.createElement('input');
+                        csrfTokenInput.type = 'hidden';
+                        csrfTokenInput.name = 'csrfmiddlewaretoken';
+                        csrfTokenInput.value = '{{ csrf_token }}'; // Use Django template tag to get CSRF token
+                        form.appendChild(csrfTokenInput);
+
+                        // Create hidden input for book ID
+                        const bookIdInput = document.createElement('input');
+                        bookIdInput.type = 'hidden';
+                        bookIdInput.name = 'book_id';
+                        bookIdInput.value = book.id;
+                
+                        // Create borrow button
+                        const borrow = document.createElement('button');
+                        borrow.textContent = 'Borrow';
+                        borrow.className = 'borrowBtn';
+                        borrow.id = `borrowBtn_${i}`;
+                        borrow.style.cssText = `
+                            border: 0;
+                            box-shadow: 1px 10px 10px #31220f95;
+                            border-radius: 10px;
+                            padding: 4px;
+                            background-color: rgb(29, 97, 84);
+                            color: #f8f4ef;
+                            font-weight: 600;
+                            font-size: 17px;
+                            cursor: pointer;
+                            position: relative;
+                            left: 130px;
+                            z-index: 10;
+                            width: 100px;
+                        `;
+                        // Append book ID input and borrow button to form
+                        form.appendChild(bookIdInput);
+                        form.appendChild(borrow);
+
+                        // Append form to card
+                        card.appendChild(form);
+                        
+                        // Submit form when borrow button is clicked
+                        borrow.addEventListener('click', function() {
+                        form.submit();
+                    });
+                    {% comment %} card.appendChild(borrow); {% endcomment %}
+                } else {
+                    card.style.borderBottom = '10px solid red';
+                }
+            {% endif %}
+        {% else %}
+            // Do nothing for users who are not authenticated
+        {% endif %}
+
+        
+            if (book.name.length > 22)
+                cardContent.style.fontSize = '12px';
+
+///////////////////////////////////////////////////////////////FUNCTION COMENTED////////////////////////////////////////////////////////////////////////////
+
+            {% comment %} if (book.available) {
+                card.style.borderBottom = '10px solid #7af722';
+
+                // Create form for borrowing
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = "{% url 'borrow_book2' %}";
+
+               // Add CSRF token to form data
+               const csrfTokenInput = document.createElement('input');
+               csrfTokenInput.type = 'hidden';
+               csrfTokenInput.name = 'csrfmiddlewaretoken';
+               csrfTokenInput.value = '{{ csrf_token }}'; // Use Django template tag to get CSRF token
+               form.appendChild(csrfTokenInput);
+
+                // Create hidden input for book ID
+                const bookIdInput = document.createElement('input');
+                bookIdInput.type = 'hidden';
+                bookIdInput.name = 'book_id';
+                bookIdInput.value = book.id;
+         
+                // Create borrow button
+                const borrow = document.createElement('button');
+                borrow.textContent = 'Borrow';
+                borrow.className = 'borrowBtn';
+                borrow.id = `borrowBtn_${i}`;
+                borrow.style.cssText = `
+                    border: 0;
+                    box-shadow: 1px 10px 10px #31220f95;
+                    border-radius: 10px;
+                    padding: 4px;
+                    background-color: rgb(29, 97, 84);
+                    color: #f8f4ef;
+                    font-weight: 600;
+                    font-size: 17px;
+                    cursor: pointer;
+                    position: relative;
+                    left: 130px;
+                    z-index: 10;
+                    width: 100px;
+                `;
+                // Append book ID input and borrow button to form
+                form.appendChild(bookIdInput);
+                form.appendChild(borrow);
+
+                // Append form to card
+                card.appendChild(form);
+                
+                // Submit form when borrow button is clicked
+               borrow.addEventListener('click', function() {
+               form.submit();
+            });
+            } else {
+                card.style.borderBottom = '10px solid red';
+            } {% endcomment %}
+/////////////////////////////////////////////////////////////////////////END OF THE COMMINT/////////////////////////////////////////////////////////////////////////
+            return card;
+        }
+
+        function createGrid(books, categories) {
+            const container = document.getElementById('book-container');
+            
+            for (let i = 0; i < categories.length; i++) {
+                const grid = document.createElement('div');
+                grid.className = 'grid';
+                const row = document.createElement('div'); 
+                row.className = 'row';
+                const createCategory = document.createElement('div');
+                createCategory.className = 'categorycontainer';
+                const categoryTitle = document.createElement('h1');
+                categoryTitle.className = 'categorytitle';
+                categoryTitle.textContent = categories[i];
+                categoryTitle.style.backgroundColor = 'rgb(29, 97, 84, 0.9)';
+                categoryTitle.style.padding = '10px';
+                categoryTitle.style.color = '#f8f4ef';
+
+                createCategory.appendChild(categoryTitle);
+                grid.appendChild(createCategory);
+
+                books.forEach(book => {
+                    if (book.genre.toLowerCase() === categories[i].toLowerCase()) {
+                        console.log(categories[i]);
+                        row.appendChild(createbook(book));
+                    }
+                });
+
+                row.style.cssText = `
+                    width: 100%;
+                    height: 580px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    overflow-x: scroll;
+                    flex-direction: column;
+                `;
+
+                grid.appendChild(row);
+                grid.style.cssText = `
+                    flex-direction: column;
+                    flex-wrap: nowrap;
+                    display: flex;
+                    margin-top: 20px;
+                    margin-bottom: 40px;
+                    box-shadow: -10px 15px 10px #31220f91;
+                    padding-top: 10px;
+                    border-radius: 10px;
+                    overflow: hidden;
+                `;
+
+                container.appendChild(grid);
+            }
+        }
+
+        
+    </script>
+</body>
+</html>
+{% endblock%}
+{% include 'footer.html' %}

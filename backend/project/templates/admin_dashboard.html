@@ -1,0 +1,31 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
+{% include 'nav_bar.html' %}
+
+{% block content %}
+<head>
+    <title>Admin Dashboard</title>
+</head>
+
+<div class="main">
+    <h1>Welcome Admin</h1>
+    <p class="paragraph">As an admin, you have access to the following features:</p>
+    <div class="feature">
+        <a href="{% url 'addbooks' %}" class="feature_button">Add Book</a>
+    </div>
+    <div class="feature">
+        <a href="{% url 'view_books' %}" class="feature_button">View Books</a>
+    </div>
+    <div class="feature">
+        <a href="{% url 'main_view' %}" class="feature_button">Edit Book Details</a>
+    </div>
+    <div class="feature">
+        <a href="{% url 'main_view' %}" class="feature_button">Delete Book</a>
+    </div>
+</div>
+
+<script src="{% static 'js/admin_dashboard.js' %}"></script>
+
+{% endblock content %}
+
+{% include 'footer.html' %}

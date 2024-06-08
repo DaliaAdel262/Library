@@ -1,0 +1,140 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/Home.css' %}">
+{% include 'nav_bar.html' %}
+
+{%block content%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../media/images/Sticker png.png"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css'>
+
+    <title>Home</title>
+</head>
+<body>
+    
+    <div class="first_page">
+        <div class="Intro">
+            <h3><p id="introPara">Welcome to our library,
+                <p>where learning and discovery await you. With a vast collection of books, multimedia 
+            resources, and online databases, you can start learning now and explore a world of knowledge at your <fingertips class="br"></fingertips>
+                            <a href="{% url 'signup'%}"><button class="startNow">Start Now </button></p><br></a></p>
+            </p></h3>
+        </div>
+    </div>
+    <div class="secondpage" id="secondpage">
+        <div chass="services"> <!-- container of the services -->
+            <h3 id="secondPageTitle"> We <b>OFFER </b>you <br> a unique experience through</h3>
+            <div id="servicesContainer">
+                <div class="card">
+                    <a href="{% url 'signup' %}"><img src="../static/images/explore.jpg" alt="explore"></a>
+                    <div class="cardIntro">
+                        <h1>Explore</h1>
+                        <p>The ability to <span>explore</span> and search our library</p>
+                    </div> 
+                </div>
+                <div class="card">
+                    <a href="{% url 'signup' %}"><img src="../static/images/borrowBook.jpg" alt="borrow"></a>
+                    <div class="cardIntro">
+                        <h1>Borrow</h1>
+                        <p>The ability to <span>borrow</span> books as a user  </p>                  
+                    </div> 
+                </div>
+                <div class="card">
+                    <a href="{% url 'signup' %}"><img src="../static/images/editBook.jpg" alt="editBook"></a>
+                    <div class="cardIntro">
+                        <h1>Add & Edit</h1>
+                        <p>Providing <span> new, edited and updated</span> book</p>
+                    </div> 
+                </div>
+
+            </div>
+            <br>
+        </div> 
+    </div>
+    <!-- INSTEAD OF BUYING 
+        one, Why not borrow a book and save?
+    -->
+    <div class="thirdpage" id="thirdPage">
+        <h3 id="title"> Popular Books </h3>
+        <div class="booksContainer">
+            
+            <div class="book">
+                <img src="../static/images/sciencefiction_1.jpg" >  
+                        <p id="bookTitle"> Dune: </p> <p id="author">By Frank Herbert </p>
+            </div>
+            
+            <div class="book">
+                <img src="../static/images/DaVinciCode.jpeg" ><br>
+                    <p id="bookTitle"> The Da Vinci Code:</p> <p id="author">By Dan Brown</p>
+                
+            </div>
+            <div class="book">
+                <img src="../static/images/selfhelp_3.jpg" >
+                    <p id="bookTitle"> Atomic Habits: </p> <p id="author"> by James Clear </p>
+                
+            </div>
+            
+            <div class="book">
+                <img src="../static/images/children_1.jpg"><br>
+                    <p id="bookTitle"> Harry Potter and the Philosopher's Stone: </p> <p id="author"> by JK Rowling </p>
+                
+            </div>
+            
+            <div class="book"> 
+                <img src="../static/images/romance_3.jpg" > <br>
+                    <p id="bookTitle">The Notebook: </p> <p id="author">by Nicholas Sparks</p> 
+                    
+            </div>
+            
+            <div class="book"> 
+                <img src="../static/images/historical_3.jpg"  > <br>
+                    <p id="bookTitle"> The Nightingale: </p> <p id="author"> by Kristin Hannah</p> 
+                    
+                </div>
+            
+            <div class="book"> 
+                <img src="../static/images/sciencefiction_2.jpg" > <br>
+                    <p id="bookTitle">Neuromancer:</p> <p id="author">  by William Gibson </p>
+            </div>
+            <a href="{% url 'view_books' %}" id="morebook"><div class="moreBooks"> See more </div></a>
+        </div>
+
+    </div>
+    <br>
+        </div>
+    </div>
+    <div class="fourthpage" id="AboutUs">
+        <div class="aboutUs">
+            <h3 id="title">About Us</h3>
+            <div class="aboutUsPara">
+                <div class="aboutIntro">
+                    Welcome to Book Haven,<p>
+                    a sanctuary for knowledge and exploration. <br> Our library isn't just a structure filled with books, but a central point where individuals of all ages and backgrounds can gather to learn, explore, and interact.
+                    It's a space where knowledge and creativity merge to craft a enchanting experience. <br> <br>
+                    At Book Haven, we hold the belief that reading is a delight and a continuous pursuit. This is why we provide a diverse selection of fiction, non-fiction, and reference materials to cater to your requirements. Whether you seek the newest bestseller, a timeless novel, or a reference guide to aid in your studies, we have something for everyone. <br> <br>
+                    Our library transcends being merely a book-lending spot. It's a venue where you can join events, take part in workshops, and engage in conversations with kindred spirits. We are firm believers that learning is a communal endeavor, and we endeavor to establish an atmosphere that encourages cooperation and community. Therefore, pay us a visit at Book Haven and uncover the enchantment of reading and the pleasure of lifelong learning.
+                    We eagerly anticipate your arrival to our community. 
+                    </p>
+                </div>
+                <div >
+                    <img src="../static/images/aboutUs2.jpg" class="aboutimg" alt="about">
+            </div>            
+        </div>
+    </div>
+        <div class="contactUs" id="contactUs">
+            <h3 id="title">Contact Us </h3>
+            <p id="p1">Please feel free to contact us:</p>
+            <p id="pp"><i class="fa fa-envelope" id="icon"></i> Email: <a href="mailto:dodoati4599@gmail.com" class="email">info@BookHaven.com</a></p>
+            <p id="pp"> <i      class="fa fa-phone" style="font-size: 25px;"     id="icon"></i> Phone: 163-4599-199</p>
+            <p id="pp"><i       class='fas fa-map-marker-alt'                    id="icon"></i> Address: 123 Main Street, Cairo, Egypt</p>
+        </div>
+        
+    
+</div>
+    
+</body>
+{%endblock content%}
+
+{% include 'footer.html' %}

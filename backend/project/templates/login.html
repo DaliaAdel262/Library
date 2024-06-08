@@ -1,0 +1,42 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/signup-login.css' %}">
+{% include 'nav_bar.html' %}
+
+
+{% block content %}
+    
+    <!-- <link rel="icon" href="book_covers/Sticker png.png"/> -->
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css'> -->
+<title>Login</title>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+    <div class="main1">  	
+
+			<div class="login">
+				<form method="post">
+                {% csrf_token%}
+					<label for="chk" aria-hidden="true">Login</label>
+                <input type="text" name="username" placeholder="User name" required="">
+					<input type="password" name="pswd" placeholder="Password" required="">
+                    {% csrf_token %}
+					<button type="submit">Login</button>
+				</form>
+			</div>
+	</div>
+    {% endblock content%}
+
+
+    {% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/login.js' %}" defer></script>
+
+    {% endblock scripts %}
+    
+
+    {% include 'footer.html' %}
+

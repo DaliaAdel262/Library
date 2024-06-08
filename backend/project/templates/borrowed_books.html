@@ -1,0 +1,92 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Borrowed books</title>
+  <meta charset="utf-8" />
+  <link rel="icon" href="book_covers/Sticker png.png"/>
+  <link rel="stylesheet" href="{% static 'css/borrowedBooks.css' %}">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css'>
+</head>
+
+<body>
+  <div>
+    <header class="nav_bar">
+        <a href="{% url 'userdashboard' %}"   id="navbar_logo"> <img src="{% static 'images/Sticker png.png'%}" id="logo" ></a>
+        <a href="{% url 'userdashboard' %}" id="libraryName"><span id="libraryName"> Book Haven</span></a>
+        <nav class="nav_menu">
+            <a href="{% url 'userdashboard' %}"class="nav_links">Home</a> 
+            <a href="{% url 'view_books' %}"class="nav_links">Books</a>
+            <a href="{% url 'borrowedBooks' %}"class="nav_links">Your books</a> 
+            <a href="{% url 'userprofile' %}"class="nav_links">Profile</a>
+            <a href="{% url 'signout' %}" class="nav_links">Logout</a>
+            <a href="{% url 'main' %}"          class="nav_links" style="font-size: 20px;"><i class="fa fa-search"></i></a>
+        </nav>
+    </header>
+</div>
+
+  <main>
+    <div class="main">
+      <h2><b>Welcome to your borrowed books page :)</b></h2>
+      <div>
+        <p> Here, you can view a list of books you have borrowed from our library. </p>
+        <p> If you have any books that need to be returned or renewed, you can manage them here as well. </p>
+        <p>Happy reading!</p>
+      </div>
+    </div>
+    <p>
+      
+  <div id="books-container" class="books-container">
+    {% for book in borrowed_books %}
+    <div class="book">
+      <h3>{{ book.name }}</h3>
+      <img src="{{ book.image }}" alt="{{ book.title }}" width="150" height="220" class="images">
+      <ul class="details">
+        <li><b>Author :</b> {{ book.author }}</li>
+        <li><b>Genre :</b> {{ book.genre }}</li>
+        <li><b>Borrowed Date :</b> {{ book.borrowed_date }}</li>
+        <li><b>Due Date :</b> {{ book.due_date }}</li>
+        <li><a href="{% url 'bookRenewal' book.id %}">
+          <button class="buttons">Renew</button></li>
+        </a>
+        <li><a href="{% url 'return_book' book.id %}">
+          <button class="buttons">Return</button>
+        </a></li>
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+  
+
+  <footer class="footer">
+    <div class="footer_column">
+        <h3>Book Haven</h3>
+        <ul class="special-list">
+            <li><a href="{% url 'userdashboard' %}">Home</a> </li>
+            <li><a href="{% url 'view_books' %}">Books</a> </li>
+            <li><a href="{% url 'home' %}#AboutUs">About Us</a> </li>
+            <li><a href="{% url 'home' %}#contactUs">Contact Us</a></li>
+        </ul>
+    </div>
+    <div class=>
+        <h2>Follow Us</h2>
+        <div class="social_icons">
+            <ul class="social">
+                <li><a href="https://www.facebook.com/?locale=ar_AR" target="_blank"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="https://twitter.com/?lang=ar" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="https://support.google.com/googlecurrents/answer/9217723?hl=ar" target="_blank"><i class="fab fa-google-plus-g" aria-hidden="true" ></i></a></li>
+                <li><a href="https://www.instagram.com/?hl=ar" target="_blank"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script src="{% static 'js/borrowedBooks.js' %}"></script>
+
+
+  </main>
+
+</body>
+
+</html>
